@@ -2,12 +2,13 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser,User
 
 
+
 class User(AbstractUser):
     location=models.CharField(max_length=50, blank=True, null=True, default='Warsaw')
 
 
 class Jobs(models.Model):
-    user=models.OneToOneField(User, on_delete=models.CASCADE)
+    user=models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     company=models.CharField(max_length=55, blank=True, null=True)
     position=models.CharField(max_length=55, blank=True, null=True)
     job_location=models.CharField(max_length=55, blank=True, null=True)
@@ -35,6 +36,6 @@ class Jobs(models.Model):
         return self.company
 
     class Meta:
-        ordering=('-added')
+        ordering=('-added',)
         verbose_name='Jobs'
-        vebose_name_plural='Jobs'
+        verbose_name_plural='Jobs'
